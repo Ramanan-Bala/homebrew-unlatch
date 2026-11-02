@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Template: Scripts/release.sh fills in 1.0.0-beta.3 and 7bade43cbcb7c136185a5bab1de43aa0b67905ccbd85bb3948d200a1cabe430f (plan Step 18, D-69).
+# Template: Scripts/release.sh fills in 1.0.0-beta.4 and 9b064ca140d31dda37eb6e1719ede9bdf37758409d0b70daafa9a8ba7e0f7416 (plan Step 18, D-69).
 cask "unlatch" do
-  version "1.0.0-beta.3"
-  sha256 "7bade43cbcb7c136185a5bab1de43aa0b67905ccbd85bb3948d200a1cabe430f"
+  version "1.0.0-beta.4"
+  sha256 "9b064ca140d31dda37eb6e1719ede9bdf37758409d0b70daafa9a8ba7e0f7416"
 
   url "https://github.com/Ramanan-Bala/unlatch/releases/download/v#{version}/Unlatch-#{version}.dmg"
   name "Unlatch"
@@ -22,23 +22,26 @@ cask "unlatch" do
   app "Unlatch.app"
   binary "#{appdir}/Unlatch.app/Contents/Helpers/unlatch"
 
+  # Homebrew runs this on upgrades too (abstract_uninstall.rb skips only `signal`), so the helper
+  # is not removed here: an upgrade must keep it and its Full Disk Access grant (D-76). It goes
+  # with `brew uninstall --zap` or Unlatch's Settings > Uninstall.
   uninstall early_script: {
               executable:   "#{appdir}/Unlatch.app/Contents/Helpers/unlatch",
               args:         ["unmount", "--all"],
               must_succeed: false,
             },
-            launchctl:    "io.github.ramanan-bala.unlatch.helper",
-            quit:         "io.github.ramanan-bala.Unlatch",
-            delete:       [
-              "/Library/LaunchDaemons/io.github.ramanan-bala.unlatch.helper.plist",
-              "/Library/PrivilegedHelperTools/Unlatch Helper",
-              "/Library/PrivilegedHelperTools/io.github.ramanan-bala.unlatch.helper",
-            ]
+            quit:         "io.github.ramanan-bala.Unlatch"
 
-  zap trash: [
-    "~/Library/Application Support/Unlatch",
-    "~/Library/Preferences/io.github.ramanan-bala.Unlatch.plist",
-  ]
+  zap launchctl: "io.github.ramanan-bala.unlatch.helper",
+      delete:    [
+        "/Library/LaunchDaemons/io.github.ramanan-bala.unlatch.helper.plist",
+        "/Library/PrivilegedHelperTools/io.github.ramanan-bala.unlatch.helper",
+        "/Library/PrivilegedHelperTools/Unlatch Helper",
+      ],
+      trash:     [
+        "~/Library/Application Support/Unlatch",
+        "~/Library/Preferences/io.github.ramanan-bala.Unlatch.plist",
+      ]
 
   caveats <<~EOS
     Unlatch is not signed with an Apple Developer ID. If macOS refuses to open it, open it once
@@ -48,6 +51,8 @@ cask "unlatch" do
     macFUSE's kernel extension must be allowed once (Recovery > Reduced Security, then Allow in
     System Settings > Privacy & Security); Unlatch's setup window walks through it:
     https://github.com/Ramanan-Bala/unlatch#one-time-setup
+    Upgrades keep the disk helper. `brew uninstall --cask --zap unlatch` (or Unlatch's Settings >
+    Uninstall) also removes the helper; a plain uninstall leaves it, unused.
     Uninstalling Unlatch leaves macFUSE installed (brew uninstall --cask macfuse removes it).
   EOS
 end

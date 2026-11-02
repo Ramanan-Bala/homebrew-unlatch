@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Template: Scripts/release.sh fills in 1.0.0-beta.3 and 20389e22fd469bbd178d1ead1a39f0083775bb2fb587953a8fb1cdba6d953df0 (plan Step 18, D-69).
+# Template: Scripts/release.sh fills in 1.0.0-beta.4 and 2577b1fbdd1507cccb3495da8352ca3c09eefd9a6a5c48ac12326459b15febae (plan Step 18, D-69).
 # The command-line part only (unlatch, unlatch-fuse, the helper), built from source. The app
 # is the cask. Formulae cannot depend on casks, so macFUSE is checked here instead.
 class Unlatch < Formula
   desc "Read-write NTFS volumes on macOS, through macFUSE (command-line tools)"
   homepage "https://github.com/Ramanan-Bala/unlatch"
-  url "https://github.com/Ramanan-Bala/unlatch/releases/download/v1.0.0-beta.3/unlatch-1.0.0-beta.3.tar.gz"
-  sha256 "20389e22fd469bbd178d1ead1a39f0083775bb2fb587953a8fb1cdba6d953df0"
+  url "https://github.com/Ramanan-Bala/unlatch/releases/download/v1.0.0-beta.4/unlatch-1.0.0-beta.4.tar.gz"
+  sha256 "2577b1fbdd1507cccb3495da8352ca3c09eefd9a6a5c48ac12326459b15febae"
   license "GPL-3.0-or-later"
 
   depends_on xcode: ["27.0", :build]
