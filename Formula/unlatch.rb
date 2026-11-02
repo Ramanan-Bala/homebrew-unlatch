@@ -1,0 +1,44 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Template: Scripts/release.sh fills in 1.0.0-beta.1 and 8ba39d21baf6053b187bbc038cba30297f85d903128200f93fabb7dad0d44f9b (plan Step 18, D-69).
+# The command-line part only (unlatch, unlatch-fuse, the helper), built from source. The app
+# is the cask. Formulae cannot depend on casks, so macFUSE is checked here instead.
+class Unlatch < Formula
+  desc "Read-write NTFS volumes on macOS, through macFUSE (command-line tools)"
+  homepage "https://github.com/Ramanan-Bala/unlatch"
+  url "https://github.com/Ramanan-Bala/unlatch/releases/download/v1.0.0-beta.1/unlatch-1.0.0-beta.1.tar.gz"
+  sha256 "8ba39d21baf6053b187bbc038cba30297f85d903128200f93fabb7dad0d44f9b"
+  license "GPL-3.0-or-later"
+
+  depends_on xcode: ["27.0", :build]
+  depends_on arch: :arm64
+  depends_on :macos
+
+  def install
+    unless File.exist?("/usr/local/include/fuse3/fuse_lowlevel.h")
+      odie "macFUSE is required: brew install --cask macfuse, then allow its system extension"
+    end
+    # Plain clang and SwiftPM: xcodebuild's package resolution cannot run in Homebrew's sandbox.
+    system "Scripts/build-ntfs3g.sh"
+    system "Scripts/build-tools.sh", "out"
+    system "swift", "build", "--package-path", "CLI", "-c", "release", "--disable-sandbox"
+    libexec.install "out/unlatch-fuse", "out/io.github.ramanan-bala.unlatch.helper",
+                    "CLI/.build/release/unlatch"
+    bin.install_symlink libexec/"unlatch"
+    system "Scripts/make-notices.sh", "#{doc}/notices", version.to_s
+  end
+
+  def caveats
+    <<~EOS
+      Finish the one-time setup (macFUSE's kernel extension approval, the helper for real disks):
+        unlatch setup
+      Steps: https://github.com/Ramanan-Bala/unlatch#one-time-setup
+      `sudo unlatch uninstall-helper` removes the helper again.
+    EOS
+  end
+
+  test do
+    assert_match "USAGE: unlatch", shell_output("#{bin}/unlatch --help")
+    # doctor exits 0 with macFUSE ready, 4 without it; either way it reports on macOS.
+    assert_match "macOS", shell_output("#{bin}/unlatch doctor 2>&1; true")
+  end
+end
