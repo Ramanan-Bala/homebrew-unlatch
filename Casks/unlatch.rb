@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Template: Scripts/release.sh fills in 1.0.0-beta.2 and a9189a82efda24ee4be3e4c66fb8e104bce45151a2146ce3eed372a90b781289 (plan Step 18, D-69).
+# Template: Scripts/release.sh fills in 1.0.0-beta.3 and 7bade43cbcb7c136185a5bab1de43aa0b67905ccbd85bb3948d200a1cabe430f (plan Step 18, D-69).
 cask "unlatch" do
-  version "1.0.0-beta.2"
-  sha256 "a9189a82efda24ee4be3e4c66fb8e104bce45151a2146ce3eed372a90b781289"
+  version "1.0.0-beta.3"
+  sha256 "7bade43cbcb7c136185a5bab1de43aa0b67905ccbd85bb3948d200a1cabe430f"
 
   url "https://github.com/Ramanan-Bala/unlatch/releases/download/v#{version}/Unlatch-#{version}.dmg"
   name "Unlatch"
@@ -31,6 +31,7 @@ cask "unlatch" do
             quit:         "io.github.ramanan-bala.Unlatch",
             delete:       [
               "/Library/LaunchDaemons/io.github.ramanan-bala.unlatch.helper.plist",
+              "/Library/PrivilegedHelperTools/Unlatch Helper",
               "/Library/PrivilegedHelperTools/io.github.ramanan-bala.unlatch.helper",
             ]
 
