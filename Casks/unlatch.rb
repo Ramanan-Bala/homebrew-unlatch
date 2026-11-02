@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Template: Scripts/release.sh fills in 1.0.0-beta.1 and 9c5e9d57bbbf4ca2c07e0c8c8b999b4b4812c0d5e98853c3062730eed321e78d (plan Step 18, D-69).
+# Template: Scripts/release.sh fills in 1.0.0-beta.2 and a9189a82efda24ee4be3e4c66fb8e104bce45151a2146ce3eed372a90b781289 (plan Step 18, D-69).
 cask "unlatch" do
-  version "1.0.0-beta.1"
-  sha256 "9c5e9d57bbbf4ca2c07e0c8c8b999b4b4812c0d5e98853c3062730eed321e78d"
+  version "1.0.0-beta.2"
+  sha256 "a9189a82efda24ee4be3e4c66fb8e104bce45151a2146ce3eed372a90b781289"
 
   url "https://github.com/Ramanan-Bala/unlatch/releases/download/v#{version}/Unlatch-#{version}.dmg"
   name "Unlatch"
@@ -42,7 +42,7 @@ cask "unlatch" do
   caveats <<~EOS
     Unlatch is not signed with an Apple Developer ID. If macOS refuses to open it, open it once
     with a right-click on Unlatch in Applications > Open, or allow it in System Settings >
-    Privacy & Security > "Open Anyway".
+    Privacy & Security > "Open Anyway". Until then macOS also stops the `unlatch` command.
 
     macFUSE's kernel extension must be allowed once (Recovery > Reduced Security, then Allow in
     System Settings > Privacy & Security); Unlatch's setup window walks through it:
