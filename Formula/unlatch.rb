@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Template: Scripts/release.sh fills in 1.0.0-beta.4 and 2577b1fbdd1507cccb3495da8352ca3c09eefd9a6a5c48ac12326459b15febae (plan Step 18, D-69).
+# Template: Scripts/release.sh fills in 1.0.0-beta.5 and 822aee608bb1da2f853a50771ee57ce9197a906394d59ac36a6bf0779c869787 (plan Step 18, D-69).
 # The command-line part only (unlatch, unlatch-fuse, the helper), built from source. The app
 # is the cask. Formulae cannot depend on casks, so macFUSE is checked here instead.
 class Unlatch < Formula
   desc "Read-write NTFS volumes on macOS, through macFUSE (command-line tools)"
   homepage "https://github.com/Ramanan-Bala/unlatch"
-  url "https://github.com/Ramanan-Bala/unlatch/releases/download/v1.0.0-beta.4/unlatch-1.0.0-beta.4.tar.gz"
-  sha256 "2577b1fbdd1507cccb3495da8352ca3c09eefd9a6a5c48ac12326459b15febae"
+  url "https://github.com/Ramanan-Bala/unlatch/releases/download/v1.0.0-beta.5/unlatch-1.0.0-beta.5.tar.gz"
+  sha256 "822aee608bb1da2f853a50771ee57ce9197a906394d59ac36a6bf0779c869787"
   license "GPL-3.0-or-later"
 
   depends_on xcode: ["27.0", :build]
@@ -29,7 +29,7 @@ class Unlatch < Formula
 
   def caveats
     <<~EOS
-      Finish the one-time setup (macFUSE's kernel extension approval, the helper for real disks):
+      Finish the one-time setup (turn on macFUSE's file system extension, the helper for real disks):
         unlatch setup
       Steps: https://github.com/Ramanan-Bala/unlatch#one-time-setup
       `sudo unlatch uninstall-helper` removes the helper again.

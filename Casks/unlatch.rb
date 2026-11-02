@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Template: Scripts/release.sh fills in 1.0.0-beta.4 and 9b064ca140d31dda37eb6e1719ede9bdf37758409d0b70daafa9a8ba7e0f7416 (plan Step 18, D-69).
+# Template: Scripts/release.sh fills in 1.0.0-beta.5 and 8f1ab66ab67bae3fc43eaedd7c3c94ea9edf6c0aa7dbf21fccaafb899e82833c (plan Step 18, D-69).
 cask "unlatch" do
-  version "1.0.0-beta.4"
-  sha256 "9b064ca140d31dda37eb6e1719ede9bdf37758409d0b70daafa9a8ba7e0f7416"
+  version "1.0.0-beta.5"
+  sha256 "8f1ab66ab67bae3fc43eaedd7c3c94ea9edf6c0aa7dbf21fccaafb899e82833c"
 
   url "https://github.com/Ramanan-Bala/unlatch/releases/download/v#{version}/Unlatch-#{version}.dmg"
   name "Unlatch"
@@ -48,8 +48,8 @@ cask "unlatch" do
     with a right-click on Unlatch in Applications > Open, or allow it in System Settings >
     Privacy & Security > "Open Anyway". Until then macOS also stops the `unlatch` command.
 
-    macFUSE's kernel extension must be allowed once (Recovery > Reduced Security, then Allow in
-    System Settings > Privacy & Security); Unlatch's setup window walks through it:
+    macFUSE's file system extension must be turned on once (System Settings > General > Login
+    Items & Extensions > File System Extensions > macFUSE); Unlatch's setup window walks through it:
     https://github.com/Ramanan-Bala/unlatch#one-time-setup
     Upgrades keep the disk helper. `brew uninstall --cask --zap unlatch` (or Unlatch's Settings >
     Uninstall) also removes the helper; a plain uninstall leaves it, unused.
