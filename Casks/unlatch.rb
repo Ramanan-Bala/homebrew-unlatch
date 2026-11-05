@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Template: Scripts/release.sh fills in 1.0.0-beta.13 and efd6aca06db43afc820ef9707284eccde7f0c88a8257d4a79bd142ac5e046110 (plan Step 18, D-69).
+# Template: Scripts/release.sh fills in 1.0.0-beta.14 and 5ae0574466a667dea1bc189cec8f49670b413d0af858d569898ec52db74fb1f0 (plan Step 18, D-69).
 cask "unlatch" do
-  version "1.0.0-beta.13"
-  sha256 "efd6aca06db43afc820ef9707284eccde7f0c88a8257d4a79bd142ac5e046110"
+  version "1.0.0-beta.14"
+  sha256 "5ae0574466a667dea1bc189cec8f49670b413d0af858d569898ec52db74fb1f0"
 
   url "https://github.com/Ramanan-Bala/unlatch/releases/download/v#{version}/Unlatch-#{version}.dmg"
   name "Unlatch"
